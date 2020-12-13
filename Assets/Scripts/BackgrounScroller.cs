@@ -2,23 +2,21 @@
 
 public class BackgrounScroller : MonoBehaviour {
 
-	MeshRenderer rend;
-	GameObject player;
-	Player playerScript;
+	private MeshRenderer _meshRenderer;
+	private Player _player;
 	public float scrollSpeed;
 	public float scrollTimer;
 
 	void Start () {
-		player = GameObject.Find ("Character");
-		playerScript = player.GetComponent<Player> ();
 		scrollSpeed = 0.1f;
-		rend = GetComponent<MeshRenderer>();
+		_player = FindObjectOfType<Player>();
+		_meshRenderer = GetComponent<MeshRenderer>();
 	}
 
 	void Update () {
-		if ((MobileController.onMove) || playerScript.rightAndUpCase) {
+		if ((MobileController.onMove) || _player.rightAndUpCase) {
 			scrollTimer += Time.deltaTime * scrollSpeed;
-			rend.material.mainTextureOffset = new Vector2 (scrollTimer, 0f);
+			_meshRenderer.material.mainTextureOffset = new Vector2 (scrollTimer, 0f);
 		}
 	}
 }
