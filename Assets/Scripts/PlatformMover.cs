@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
 public class PlatformMover : MonoBehaviour {
-	GameObject player;
-	Player playerScript;
+	Player _player;
 	SpriteRenderer spriteRenderer;
 	public Vector2 mover;
 	public GameObject fallingGameObject;
@@ -24,9 +23,8 @@ public class PlatformMover : MonoBehaviour {
 	int visibilityRate = 0;
 
 	void Start () {
-		player = GameObject.Find ("Character");
 		try {
-			playerScript = player.GetComponent<Player> ();
+			_player = FindObjectOfType<Player>();
 		} catch (System.Exception ex) {
 			if (ex != null) {
 				Time.timeScale = 0f;
@@ -59,7 +57,7 @@ public class PlatformMover : MonoBehaviour {
 		
 	void Move () {
 		try {
-			if ((MobileController.onMove) || playerScript.rightAndUpCase) {
+			if ((MobileController.onMove) || _player.rightAndUpCase) {
 				this.transform.Translate (-speed * Time.deltaTime, 0f, 0f);
 			}
 		} catch (System.Exception ex) {
@@ -122,9 +120,9 @@ public class PlatformMover : MonoBehaviour {
 	bool setScoreAvailable = true;
 	void ScoreCalc(Collider2D other){
 		if (other.name == "Character"&& setScoreAvailable && !gameObject.CompareTag("MainPlatform")) {
-			playerScript.score++;
+			_player.score++;
 			setScoreAvailable = false;
-			playerScript.SetScore ();
+			_player.SetScore ();
 		}
 	}
 }
